@@ -61,8 +61,8 @@ public class userRegisterTest extends BaseTestCase {
         Assertions.assertResponseTextEqualse(responseCreateAuth,"Invalid email format");
     }
 
-    //Создание пользователя без указания одного из полей
-    @ParameterizedTest
+
+    @ParameterizedTest //Создание пользователя без указания одного из полей
     @ValueSource(strings = {"email", "password", "username", "firstName", "lastName"})
 
     public void testCreateUserWithoutFied(String condition) {
@@ -77,15 +77,15 @@ public class userRegisterTest extends BaseTestCase {
 
         userData.remove(condition);
 
-            Response responseCreateAuth = RestAssured
-                    .given()
-                    .body(userData)
-                    .post("https://playground.learnqa.ru/api/user/")
-                    .andReturn();
+        Response responseCreateAuth = RestAssured
+                .given()
+                .body(userData)
+                .post("https://playground.learnqa.ru/api/user/")
+                .andReturn();
 
-            Assertions.assertResponseCodeEqualse(responseCreateAuth, 400);
-            Assertions.assertResponseTextEqualse(responseCreateAuth, "The following required params are missed: "+ condition);
-        }
+        Assertions.assertResponseCodeEqualse(responseCreateAuth, 400);
+        Assertions.assertResponseTextEqualse(responseCreateAuth, "The following required params are missed: "+ condition);
+    }
 
 
     @Test
