@@ -17,6 +17,14 @@ public class Assertions {
         assertEquals(expectedValue, value, "JSON value is not equal to expected value");
     }
 
+    //
+    public static void assertJsonByName(Response Response, String name, String expectedValue){
+        Response.then().assertThat().body("$",hasKey(name));
+
+        String value = Response.jsonPath().getString(name);
+        assertEquals(expectedValue, value, "JSON value is not equal to expected value");
+    }
+
     // метод, который проверяет, что текст ответа сервера равен ожидаемому
     public static void assertResponseTextEqualse(Response Response, String expectedAnswer){
         assertEquals(
