@@ -58,7 +58,7 @@ this - специальный указатель позволяющий дела
                 .get("https://playground.learnqa.ru/api/user/auth")
                 .andReturn();
 
-       Assertions.asserJsonByName(responseCheckAuth,"user_id", this.userIdOnAuth);
+       Assertions.assertJsonByName(responseCheckAuth,"user_id", this.userIdOnAuth);
     }
 
     @ParameterizedTest
@@ -83,7 +83,7 @@ this - специальный указатель позволяющий дела
                 .get()
                 .andReturn(); // от переменной spec вызываем метод get, который задали выше и ответ парсим в переменную как json
 
-        Assertions.asserJsonByName(responseForChek,"user_id",0);
+        Assertions.assertJsonByName(responseForChek,"user_id",0);
 
     }
 
