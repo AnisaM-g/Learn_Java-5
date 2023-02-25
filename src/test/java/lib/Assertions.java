@@ -44,8 +44,8 @@ public class Assertions {
     }
 
     //
-    public static void assertJsonHasKey(Response Response, String expectedFielName){
-        Response.then().assertThat().body("$", hasKey(expectedFielName));
+    public static void assertJsonHasKey(Response Response, String expectedFieldName){
+        Response.then().assertThat().body("$", hasKey(expectedFieldName));
     }
 
     //метод позволяет проверить, что в ответе нет каких-то полей по названиям
@@ -65,6 +65,12 @@ public class Assertions {
 
     public static void assertJsonHasFields(Response Response, String[] expectedFieldNames) {
         for (String expectedFieldName : expectedFieldNames) {
+            Assertions.assertJsonHasField(Response, expectedFieldName);
+        }
+    }
+
+    public static void assertJsonHasNotFields(Response Response, String[] unexpectedFieldNames) {
+        for (String expectedFieldName : unexpectedFieldNames) {
             Assertions.assertJsonHasField(Response, expectedFieldName);
         }
     }

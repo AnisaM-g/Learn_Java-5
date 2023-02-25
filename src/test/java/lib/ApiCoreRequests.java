@@ -59,4 +59,23 @@ public class ApiCoreRequests {
                 .post(url)
                 .andReturn();
     }
+
+    @Step("Make a POST-request user login")
+    public Response makePostRequestUserLogin(String url, Map<String, String> authData) {
+        return given()
+                .filter(new AllureRestAssured())
+                .body(authData)
+                .post(url)
+                .andReturn();
+    }
+
+    @Step("Make a POST-request get user")
+    public Response makePostRequestGetUser(String url, int user_id, String token, String cookie) {
+        return given()
+                .filter(new AllureRestAssured())
+                .header(new Header("x-csrf-token", token))
+                .cookie("auth_sid", cookie)
+                .get(url + user_id)
+                .andReturn();
+    }
 }
