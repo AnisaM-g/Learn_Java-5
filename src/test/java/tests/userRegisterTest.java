@@ -2,7 +2,6 @@ package tests;
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
 import lib.Assertions;
 import lib.BaseTestCase;
 import lib.DataGenerator;
@@ -14,8 +13,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class userRegisterTest extends BaseTestCase {
-    @Test
 
+    @Test // создание пользователя с существующим email
     public void testCreateUserWithExistingEmail(){
 
         String email = "vinkotov@example.com";
@@ -59,6 +58,57 @@ public class userRegisterTest extends BaseTestCase {
 
         Assertions.assertResponseCodeEqualse(responseCreateAuth,400);
         Assertions.assertResponseTextEqualse(responseCreateAuth,"Invalid email format");
+    }
+
+    @Test //Создание пользователя с очень коротким именем в один символ
+
+    public void testCreateUserWithNotCorretionName(){
+
+        String email = DataGenerator.getRandomEmail();
+        Map<String, String> userData = new HashMap<>();
+        userData.put("email", email);
+        userData.put("password", "123");
+        userData.put("username", "a");
+        userData.put("firstName", "learnqa");
+        userData.put("lastName", "learnqa");
+
+        Response responseCreateAuth = RestAssured
+                .given()
+                .body(userData)
+                .post("https://playground.learnqa.ru/api/user/")
+                .andReturn();
+
+        Assertions.assertResponseCodeEqualse(responseCreateAuth,400);
+        Assertions.assertResponseTextEqualse(responseCreateAuth,"The value of 'username' field is too short");
+    }
+
+
+
+    @Test //Создание пользователя с очень длинным именем - длиннее 250 символов
+
+    public void testCreateUserWithNotCorretionMaxName(){
+
+        String username = "dfasdfadfadsfajfhakjfdhksajhdfkajhfkajshdfkjahfdkaj" +
+                "hfkdashsdfsdfsdfsmdfmsbfmnsbdfmnsbmfnsbdmfnsbmdfnbsmdfbsmndbfmsndbfmsb" +
+                "dfmsnbfmsbfmsnbdmnfbsmnfbsmfdbsmdnfbdsmnbfmsdnbfmsbdfmsdbfsmsmmsdsmnfbjshfgsmdnbfjs " +
+                "gmdnb fasdfaf aa dsf a adf asdf asdf asdf dsfs";
+
+        String email = DataGenerator.getRandomEmail();
+        Map<String, String> userData = new HashMap<>();
+        userData.put("email", email);
+        userData.put("password", "123");
+        userData.put("username", username);
+        userData.put("firstName", "learnqa");
+        userData.put("lastName", "learnqa");
+
+        Response responseCreateAuth = RestAssured
+                .given()
+                .body(userData)
+                .post("https://playground.learnqa.ru/api/user/")
+                .andReturn();
+
+        Assertions.assertResponseCodeEqualse(responseCreateAuth,400);
+        Assertions.assertResponseTextEqualse(responseCreateAuth,"The value of 'username' field is too long");
     }
 
 
@@ -111,3 +161,4 @@ public class userRegisterTest extends BaseTestCase {
         Assertions.assertJsonHasKey(responseCreateAuth, "id");
     }
 }
+

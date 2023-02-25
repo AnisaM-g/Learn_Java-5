@@ -4,6 +4,7 @@ import io.restassured.response.Response;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import static org.hamcrest.Matchers.hasKey;
+import static org.hamcrest.Matchers.not;
 
 public class Assertions {
 
@@ -37,5 +38,26 @@ public class Assertions {
     //
     public static void assertJsonHasKey(Response Response, String expectedFielName){
         Response.then().assertThat().body("$", hasKey(expectedFielName));
+    }
+
+    //метод позволяет проверить, что в ответе нет каких-то полей по названиям
+    public static void assertJsonHasNotKey(Response Response, String unexpectedFieldName){
+        Response.then().assertThat().body("$", not(hasKey(unexpectedFieldName)));
+    }
+
+    //
+    public static void assertJsonHasField(Response Response, String expectedFielName){
+        Response.then().assertThat().body("$", hasKey(expectedFielName));
+    }
+
+    //
+    public static void assertJsonHasNotField(Response Response, String unexpectedFieldName){
+        Response.then().assertThat().body("$", not(hasKey(unexpectedFieldName)));
+    }
+
+    public static void assertJsonHasFields(Response Response, String[] expectedFieldNames) {
+        for (String expectedFieldName : expectedFieldNames) {
+            Assertions.assertJsonHasField(Response, expectedFieldName);
+        }
     }
 }
