@@ -35,6 +35,15 @@ public class Assertions {
     }
 
     // метод, который проверяет, что текст ответа сервера равен ожидаемому
+    public static void assertResponseTextEqualseJson(Response Response, String expectedAnswer){
+        assertEquals(
+                expectedAnswer,
+                Response.jsonPath().getString("error"),
+                "Response text is not as expected"
+        );
+    }
+
+    // метод, который проверяет, что текст ответа сервера равен ожидаемому
     public static void assertResponseTextEqualseHtml(Response Response, String expectedAnswer){
         assertEquals(
                 expectedAnswer,
@@ -86,4 +95,10 @@ public class Assertions {
         }
     }
 
-}
+    public static void assertEqualsEquality(Response Response, String name, String expectedMassage) {
+        assertEquals(expectedMassage,
+                Response.jsonPath().getString(name),
+                "JSON value is not equal to expected value");
+        }
+    }
+
