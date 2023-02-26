@@ -80,14 +80,14 @@ public class UserEditTest_3 extends BaseTestCase {
         Response responseCreateAuth = apiCoreRequests
                 .makePostRequestWithUserData("https://playground.learnqa.ru/api/user/", userData);
 
-        int userId = responseCreateAuth.jsonPath().getInt("id");
+        //int userId = responseCreateAuth.jsonPath().getInt("id");
         //System.out.println(userId);
 
         //System.out.println(responseCreateAuth);
         //responseCreateAuth.prettyPrint();
 
 
-        String oldName = userData.get("firstName");
+        //String oldName = userData.get("firstName");
         //System.out.println(oldName);
 
         //LOGIN
@@ -211,7 +211,7 @@ public class UserEditTest_3 extends BaseTestCase {
                         userId,
                         header,
                         cookie);
-        String newEmail_2 = responseUserData.jsonPath().getString("email");
+        //String newEmail_2 = responseUserData.jsonPath().getString("email");
 
 
         Assertions.assertEqualsEquality(responseUserData, "email", email);
@@ -234,7 +234,7 @@ public class UserEditTest_3 extends BaseTestCase {
                 .makePostRequestWithUserData("https://playground.learnqa.ru/api/user/", userData);
 
         int userId = responseCreateAuth.jsonPath().getInt("id");
-        String firstName = userData.get("firstName");
+        //String firstName = userData.get("firstName");
 
 
         //LOGIN
@@ -279,8 +279,6 @@ public class UserEditTest_3 extends BaseTestCase {
 
 
         Assertions.assertEqualsEquality(responseUserData, "firstName", newFirstName_2);
-
-
     }
 
 }
