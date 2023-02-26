@@ -36,7 +36,7 @@ public class UserAuthTest_2 extends BaseTestCase {
         authData.put("password","1234");
 
         Response responseGetAuth = apiCoreRequests
-                .makePostRequest("https://playground.learnqa.ru/api/user/login", authData);
+                .makePostRequestWithAuthData("https://playground.learnqa.ru/api/user/login", authData);
 
         this.cookie = this.getCookie(responseGetAuth, "auth_sid");
         this.header = this.getHeader(responseGetAuth,"x-csrf-token");

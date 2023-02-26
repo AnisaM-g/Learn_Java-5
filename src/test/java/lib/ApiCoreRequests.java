@@ -39,7 +39,7 @@ public class ApiCoreRequests {
     }
 
     @Step("Make a POST-request")
-    public Response makePostRequest(String url, Map<String, String> authData) {
+    public Response makePostRequestWithAuthData(String url, Map<String, String> authData) {
         return given()
                 .filter(new AllureRestAssured())
                 .body(authData)
@@ -48,11 +48,8 @@ public class ApiCoreRequests {
     }
 
 
-
-
-    //
-    @Step("Make a POST-request create user")
-    public Response makePostRequestCreatUser(String url, Map<String, String> userData) {
+    @Step("Make a POST-request with user data")
+    public Response makePostRequestWithUserData(String url, Map<String, String> userData) {
         return given()
                 .filter(new AllureRestAssured())
                 .body(userData)
@@ -60,22 +57,24 @@ public class ApiCoreRequests {
                 .andReturn();
     }
 
-    @Step("Make a POST-request user login")
-    public Response makePostRequestUserLogin(String url, Map<String, String> authData) {
-        return given()
-                .filter(new AllureRestAssured())
-                .body(authData)
-                .post(url)
-                .andReturn();
-    }
-
-    @Step("Make a POST-request get user")
-    public Response makePostRequestGetUser(String url, int user_id, String token, String cookie) {
+    @Step("Make a POST-request with user_id, token and cookie")
+    public Response makePostRequestWithUserIdTokenCookie(String url, int user_id, String token, String cookie) {
         return given()
                 .filter(new AllureRestAssured())
                 .header(new Header("x-csrf-token", token))
                 .cookie("auth_sid", cookie)
                 .get(url + user_id)
+                .andReturn();
+    }
+
+    @Step("Make a PUT-request with user_id, token, cookie and edit data")
+    public Response makePutRequestWithUserIdTokenCookieEditData(String url, int user_id, String token, String cookie, Map<String, String> editData) {
+        return given()
+                .filter(new AllureRestAssured())
+                .header(new Header("x-csrf-token", token))
+                .cookie("auth_sid", cookie)
+                .body(editData)
+                .put(url + user_id)
                 .andReturn();
     }
 }

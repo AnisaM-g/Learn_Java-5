@@ -19,13 +19,13 @@ public class UserEditTest extends BaseTestCase {
         //GENERATE USER
         Map<String, String> userData = DataGenerator.getRegistrationData();
 
-        JsonPath responseCreatAuth = RestAssured
+        JsonPath responseCreateAuth = RestAssured
                 .given()
                 .body(userData)
                 .post("https://playground.learnqa.ru/api/user/")
                 .jsonPath();
 
-        String userId = responseCreatAuth.getString("id");
+        String userId = responseCreateAuth.getString("id");
 
         //LOGIN
         Map<String, String> authData = new HashMap<>();

@@ -91,13 +91,13 @@ public class UserGetTest_2 extends BaseTestCase {
         authData.put("password","1234");
 
         Response responseGetAuth = apiCoreRequests
-                .makePostRequestUserLogin("https://playground.learnqa.ru/api/user/login", authData);
+                .makePostRequestWithAuthData("https://playground.learnqa.ru/api/user/login", authData);
 
         this.header = this.getHeader(responseGetAuth,"x-csrf-token");
         this.cookie = this.getCookie(responseGetAuth,"auth_sid");
 
         Response responseUserData = apiCoreRequests
-                .makePostRequestGetUser(
+                .makePostRequestWithUserIdTokenCookie(
                         "https://playground.learnqa.ru/api/user/",
                         1,
                         this.header,
