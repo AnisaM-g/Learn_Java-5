@@ -7,6 +7,7 @@ import lib.ApiCoreRequests;
 import lib.Assertions;
 import lib.BaseTestCase;
 import lib.DataGenerator;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -28,6 +29,9 @@ public class UserEditTest_2 extends BaseTestCase {
 
     @Test
 
+    @Description("This is a user data change test")
+    @DisplayName("Test user data change")
+
     public void testEditJastCreateTest(){
         //GENERATE USER
         Map<String, String> userData = DataGenerator.getRegistrationData();
@@ -46,8 +50,13 @@ public class UserEditTest_2 extends BaseTestCase {
         Response responseGetAuth = apiCoreRequests
                 .makePostRequestWithAuthData("https://playground.learnqa.ru/api/user/login", authData);
 
+
+
         this.header = this.getHeader(responseGetAuth, "x-csrf-token");
         this.cookie = this.getCookie(responseGetAuth, "auth_sid");
+
+        System.out.println(this.header);
+        System.out.println(this.cookie);
 
         //EDIT
         String newName = "Chanded Name";
@@ -69,7 +78,7 @@ public class UserEditTest_2 extends BaseTestCase {
                         this.header,
                         this.cookie);
 
-        //System.out.println(responseEditUser.asString());
+
         Assertions.assertJsonByName(responseUserData, "firstName", newName);
     }
 

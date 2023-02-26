@@ -77,4 +77,13 @@ public class ApiCoreRequests {
                 .put(url + user_id)
                 .andReturn();
     }
+
+    @Step("Make a PUT request to an unauthorized user")
+    public Response makePutRequestUnauthorisidUser(String url, int user_id, Map<String, String> editData) {
+        return given()
+                .filter(new AllureRestAssured())
+                .body(editData)
+                .put(url + user_id)
+                .andReturn();
+    }
 }

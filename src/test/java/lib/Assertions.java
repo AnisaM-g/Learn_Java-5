@@ -9,7 +9,7 @@ import static org.hamcrest.Matchers.not;
 public class Assertions {
 
 
-    // метод, чтобы убедиться, что значение внутри ответа доступно по определенному имени
+    // метод, чтобы убедиться, что значение внутри ответа доступно по определенному имени. Ожидаемый результат int
     public static void assertJsonByName(Response Response, String name, int expectedValue){
         Response.then().assertThat().body("$",hasKey(name));
 
@@ -17,7 +17,7 @@ public class Assertions {
         assertEquals(expectedValue, value, "JSON value is not equal to expected value");
     }
 
-    //
+    // метод, чтобы убедиться, что значение внутри ответа доступно по определенному имени. Ожидаемый результат String
     public static void assertJsonByName(Response Response, String name, String expectedValue){
         Response.then().assertThat().body("$",hasKey(name));
 
@@ -33,6 +33,17 @@ public class Assertions {
                 "Response text is not as expected"
         );
     }
+
+    // метод, который проверяет, что текст ответа сервера равен ожидаемому
+    public static void assertResponseTextEqualseHtml(Response Response, String expectedAnswer){
+        assertEquals(
+                expectedAnswer,
+                Response.htmlPath().getString("Auth token not supplied"),
+                "Response text is not as expected"
+        );
+    }
+
+
 
     // метод, который проверяет, что код ответа сервера равен ожидаемому
     public static void assertResponseCodeEqualse(Response Response, int expectedStatusCode){
@@ -54,8 +65,8 @@ public class Assertions {
     }
 
     //
-    public static void assertJsonHasField(Response Response, String expectedFielName){
-        Response.then().assertThat().body("$", hasKey(expectedFielName));
+    public static void assertJsonHasField(Response Response, String expectedFieldName){
+        Response.then().assertThat().body("$", hasKey(expectedFieldName));
     }
 
     //
@@ -69,9 +80,10 @@ public class Assertions {
         }
     }
 
-    public static void assertJsonHasNotFields(Response Response, String[] unexpectedFieldNames) {
-        for (String expectedFieldName : unexpectedFieldNames) {
-            Assertions.assertJsonHasField(Response, expectedFieldName);
+    public static void assertJsonHasNotFields(Response Response, String[] expectedFieldNames) {
+        for (String expectedFieldName : expectedFieldNames) {
+            Assertions.assertJsonHasNotField(Response, expectedFieldName);
         }
     }
+
 }

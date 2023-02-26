@@ -16,9 +16,9 @@ public class DataGenerator {
         Map<String, String> data = new HashMap<>();
         data.put("email", DataGenerator.getRandomEmail());
         data.put("password", "1234");
-        data.put("username", "learqa");
-        data.put("firstName", "learqa");
-        data.put("lastName", "learqa");
+        data.put("username", "learnqa");
+        data.put("firstName", "learnqa");
+        data.put("lastName", "learnqa");
 
         return data;
     }
